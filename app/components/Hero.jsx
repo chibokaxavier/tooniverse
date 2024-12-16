@@ -1,9 +1,12 @@
 "use client";
 import { CiLocationArrow1 } from "react-icons/ci";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -36,6 +39,25 @@ const Hero = () => {
     },
     { dependencies: [currentIndex], revertOnUpdate: true }
   );
+
+  useGSAP(() => {
+    gsap.set("#video-frame", {
+      clipPath: "polygon(14% 0, 72% 0, 88% 90%, 0 95%)",
+      borderRadius: "0% 0% 40% 10%",
+    });
+    gsap.from("#video-frame", {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      borderRadius: "0% 0% 0% 0%",
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: "#video-frame",
+        start: "center center",
+        end: "bottom center",
+        scrub: true,
+      },
+    });
+  });
+
   const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
   const upcomingVideoIndex = (currentIndex % totalVideos) + 1;
 
@@ -48,8 +70,25 @@ const Hero = () => {
     setLoadedVideos((prev) => prev + 1);
   };
 
+  useEffect(() => {
+    console.log(loadedVideos, totalVideos - 1);
+    if (loadedVideos === totalVideos - 1) {
+      setIsLoading(false);
+      console.log(loadedVideos, totalVideos - 1);
+    }
+  }, [loadedVideos]);
+
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
+      {isLoading && (
+        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+          <div className="three-body">
+            <div className="three-body__dot" />
+            <div className="three-body__dot" />
+            <div className="three-body__dot" />
+          </div>
+        </div>
+      )}
       <div
         id="video-frame"
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75 "
@@ -67,7 +106,7 @@ const Hero = () => {
                 id="current-video"
                 className="size-64 origin-center scale-150 object-cover object-center"
                 ref={nextVideoRef}
-                onLoadedData={handleVideoLoad}
+                onLoadedData={(prev) => console.log("loaded")}
               />
             </div>
           </div>
@@ -78,7 +117,7 @@ const Hero = () => {
             muted
             id="next-video"
             className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
-            onLoadedData={handleVideoLoad}
+            onLoadedData={(prev) => console.log("loaded 2")}
           />
           <video
             src={getVideoSrc(
@@ -88,7 +127,7 @@ const Hero = () => {
             loop
             muted
             className="absolute left-0 top-0 size-full object-cover object-center"
-            onLoadedData={handleVideoLoad}
+            // onLoadedData={(prev) => setLoadedVideos(prev + 1)}
           />
         </div>
         <h1 className="special-font  hero-heading absolute bottom-5 right-5 z-40 text-black ">
