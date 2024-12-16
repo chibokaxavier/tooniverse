@@ -63,8 +63,8 @@ body {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
-  .special-font b {
-    font-family: "Zentry";
+  .special-font  {
+    font-family: "zentry";
     font-feature-settings: "ss01" on;
   }
 
