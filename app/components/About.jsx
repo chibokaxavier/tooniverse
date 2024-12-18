@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import React from "react";
+import AnimatedText from "./AnimatedText";
 
 gsap.registerPlugin(ScrollTrigger);
 const About = () => {
@@ -13,7 +14,7 @@ const About = () => {
         start: "center center",
         end: "+=800 center",
         scrub: 0.5,
-         pin: true,
+        pin: true,
         pinSpacing: true,
       },
     });
@@ -30,10 +31,11 @@ const About = () => {
         <h2 className="font-general text-sm uppercase md:text-[15px] ">
           Welcome to Zentry
         </h2>
-        <div className="mt-5 text-center text-4xl uppercase leading-[0.8] md:text-[6rem] ">
-          Disc<b>o</b>ver the world
-          <br />l<b>a</b>rgest shared adventure
-        </div>
+        <AnimatedText
+          title=" Disc<b>o</b>ver the world
+          <br />l<b>a</b>rgest shared adventure"
+          containerClass="mt-5 !text-black text-center"
+        />
         <div className="about-subtext">
           <p>The Game of Games begins—your life, now an epic MMORPG</p>
           <p className="text-gray-500">
