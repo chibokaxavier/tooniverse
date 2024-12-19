@@ -2,6 +2,8 @@
 import { useRef } from "react";
 import AnimatedText from "./AnimatedText";
 import gsap from "gsap";
+import RoundedCorners from "./RoundedCorners";
+import Button from "./Button";
 
 const Story = () => {
   const frameRef = useRef(null);
@@ -43,7 +45,7 @@ const Story = () => {
     }
   };
   return (
-    <div id="story" className="min-h-dvh w-screen bg-black text-blue-50">
+    <section id="story" className="min-h-dvh w-screen bg-black text-blue-50">
       <div className="flex size-full flex-col items-center py-10 pb-24">
         <p className="font-general text-sm uppercase md:text-[10px]">
           the multiversal ip world
@@ -69,10 +71,26 @@ const Story = () => {
                 />
               </div>
             </div>
+            <RoundedCorners />
+          </div>
+        </div>
+        <div className="-mt-80 flex w-full justify-center md:-mt-96 xl:-mt-64 md:me-44 md:justify-end overflow-hidden">
+          <div className="flex h-full w-fit flex-col items-center md:items-start  overflow-hidden">
+            <p className="mt-3 max-w-sm text-center font-circular-web text-violet-50 md:text-start overflow-hidden">
+              Where realms converge, lies Zentry and the boundless pillar.
+              Discover its secrets and shape your fate amidst infinite
+              opportunities.
+            </p>
+
+            <Button
+              id="realm-btn"
+              title="discover prologue"
+              containerClass="mt-5"
+            />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
