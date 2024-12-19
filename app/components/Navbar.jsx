@@ -96,6 +96,7 @@ const NavBar = () => {
                 </a>
               ))}
             </div>
+        
 
             <button
               onClick={toggleAudioIndicator}
